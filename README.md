@@ -55,7 +55,7 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Project Structure
 
 ```
-src/app/            Routes (Home, Workout Detail, My Plan, 404, loading)
+src/app/            Routes (Home, Workout Detail, My Plan, 404, loading,error)
 src/components/     UI components (Navbar, Hero, cards, tabs, sort dropdown)
 src/context/        PlanContext.tsx — Context API store for plan/saved/done
 src/lib/            api.ts (fetch helpers), types.ts (Workout type)
