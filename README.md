@@ -26,7 +26,7 @@ FitLog lets you pick a lift from the library, lock it into today's plan (capped 
 3. **Workout detail pages** — two-column layout with a full spec table (equipment, difficulty, sets, reps, duration, calories, rating) and numbered step-by-step instructions.
 4. **Plan & save with live toasts** — "Add to Today's Plan" and "Save for Later" buttons update shared Context state, disable themselves once already added, enforce a 5-lift plan cap, and fire a toast notification on every action.
 5. **My Plan dashboard** — pill-style Today's Plan / Saved tabs, live stat cards (Exercises, Minutes, Calories) that recompute for whichever tab is open, per-item "View Details / Mark as Done / Remove" controls, an empty state, and full `localStorage` persistence so nothing is lost on reload.
-6. **Polished navigation & states** — sticky navbar with a highlighted active-link pill and live Plan/Saved badge counts (both linking to My Plan), a themed 404 page, and a loading skeleton while the library fetches.
+6. **Polished navigation & states** — sticky navbar with a highlighted active-link pill and live Plan/Saved badge counts (both linking to My Plan), a themed 404 page, a route-level error page with a retry button, and a loading skeleton while the library fetches.
 
 ## Where things connect
 
@@ -55,7 +55,7 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Project Structure
 
 ```
-src/app/            Routes (Home, Workout Detail, My Plan, 404, loading,error)
+src/app/            Routes (Home, Workout Detail, My Plan, 404, error, loading)
 src/components/     UI components (Navbar, Hero, cards, tabs, sort dropdown)
 src/context/        PlanContext.tsx — Context API store for plan/saved/done
 src/lib/            api.ts (fetch helpers), types.ts (Workout type)
