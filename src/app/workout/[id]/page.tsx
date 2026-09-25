@@ -28,10 +28,10 @@ export default async function WorkoutDetailPage({
   }
 
   return (
-    <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <Link
         href="/#library"
-        className="mb-6 hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-muted transition-colors hover:text-accent md:inline-flex"
+        className="mb-6 hidden items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted transition-colors hover:text-accent md:inline-flex"
       >
         <ArrowLeft size={15} /> Back to library
       </Link>

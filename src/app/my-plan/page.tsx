@@ -32,8 +32,6 @@ export default function MyPlanPage() {
     [activeList, sortBy]
   );
 
-  // Stats reflect whichever tab is currently open, so Today's Plan and
-  // Saved each show their own live Exercises / Minutes / Calories totals.
   const metrics = useMemo(
     () =>
       activeList.reduce(
@@ -63,7 +61,7 @@ export default function MyPlanPage() {
   };
 
   return (
-    <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <h1 className="font-display text-3xl font-bold uppercase tracking-tight text-text sm:text-4xl">
         My Plan
       </h1>

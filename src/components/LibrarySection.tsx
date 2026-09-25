@@ -24,7 +24,7 @@ export default function LibrarySection({ workouts }: { workouts: Workout[] }) {
   }, [workouts, sortBy, query]);
 
   return (
-    <section id="library" className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6">
+    <section id="library" className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-text sm:text-4xl">

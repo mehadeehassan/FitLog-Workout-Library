@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { usePlan } from "@/context/PlanContext";
+import { usePlan } from '@/context/PlanContext';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const NAV_LINKS = [
-  { href: "/", label: "Workouts" },
-  { href: "/my-plan", label: "My Plan" },
+  { href: '/', label: 'Workouts' },
+  { href: '/my-plan', label: 'My Plan' },
 ];
 
-const NAV_LINK_ACTIVE = "rounded-full bg-accent/15 px-3 py-1 text-accent";
-const NAV_LINK_INACTIVE = "px-3 py-1 text-muted hover:text-text";
+const NAV_LINK_ACTIVE = 'rounded-full bg-accent/15 px-3 py-1 text-accent';
+const NAV_LINK_INACTIVE = 'px-3 py-1 text-muted hover:text-text';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -22,12 +22,10 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-bg/90 backdrop-blur">
-      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-4 py-3 sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image src="/logo.png" alt="FitLog" width={26} height={26} />
-          <span className="font-display text-lg font-bold uppercase tracking-wide">
-            FitLog
-          </span>
+          <span className="font-display text-lg font-bold uppercase tracking-wide">FitLog</span>
         </Link>
 
         <nav className="hidden sm:flex items-center gap-1 text-sm font-semibold uppercase tracking-wide">

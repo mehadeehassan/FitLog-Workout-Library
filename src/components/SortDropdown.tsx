@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { ChevronDown } from "lucide-react";
-import type { SortKey } from "@/lib/types";
-import { SORT_OPTIONS } from "@/lib/types";
+import type { SortKey } from '@/lib/types';
+import { SORT_OPTIONS } from '@/lib/types';
+import { ChevronDown } from 'lucide-react';
 
 interface SortDropdownProps {
   value: SortKey;
@@ -12,9 +12,7 @@ interface SortDropdownProps {
 export default function SortDropdown({ value, onChange }: SortDropdownProps) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-xs font-semibold uppercase tracking-wide text-muted">
-        Sort By
-      </span>
+      <span className="text-xs font-semibold uppercase tracking-wide text-muted">Sort By</span>
       <div className="relative">
         <select
           value={value}

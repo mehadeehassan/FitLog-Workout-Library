@@ -4,15 +4,15 @@ import { ArrowDown } from "lucide-react";
 export default function Hero() {
   return (
     <section className="border-b border-border bg-bg">
-      <div className="mx-auto grid max-w-[1280px] items-center gap-8 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
+      <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
         <div>
           <p className="mb-4 inline-flex items-center rounded-full border border-accent/40 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-accent">
             Workout Library
           </p>
           <h1 className="font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-text sm:text-5xl lg:text-6xl">
-            Train with intent.
+            Train with intent. Log
             <br />
-            Log every set.
+            <span className="font-display text-4xl font-bold uppercase leading-[1.05] tracking-tight text-accent sm:text-5xl lg:text-6xl">every set.</span>
           </h1>
           <p className="mt-5 max-w-lg text-sm text-muted sm:text-base">
             FitLog is a dark, no-nonsense gym companion: pick a lift, lock it

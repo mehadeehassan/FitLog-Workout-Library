@@ -9,7 +9,7 @@ export default function WorkoutCard({ workout }: { workout: Workout }) {
       href={`/workout/${workout.id}`}
       className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition hover:border-accent"
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-surface-2">
+      <div className="relative aspect-4/3 w-full overflow-hidden bg-surface-2">
         <Image
           src={workout.image}
           alt={workout.name}
@@ -37,7 +37,7 @@ export default function WorkoutCard({ workout }: { workout: Workout }) {
 
         <p className="text-xs text-muted">{workout.equipment}</p>
 
-        <div className="mt-auto flex items-center gap-4 pt-2 text-xs text-muted">
+        <div className="mt-auto flex items-center justify-between gap-4 pt-2 text-xs text-muted">
           <span className="flex items-center gap-1">
             <Clock size={14} className="text-accent" />
             {workout.duration} min
