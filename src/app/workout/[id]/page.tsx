@@ -1,25 +1,25 @@
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { ArrowLeft, Clock, Flame, Star } from "lucide-react";
-import { getWorkoutById } from "@/lib/api";
-import WorkoutActions from "@/components/WorkoutActions";
+import WorkoutActions from '@/components/WorkoutActions';
+import { getWorkoutById } from '@/lib/api';
+import { ArrowLeft, Clock, Flame, Star } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
-const SPECS: { key: "equipment" | "difficulty" | "sets" | "reps" | "duration" | "caloriesBurned" | "rating"; label: string; suffix?: string }[] = [
-  { key: "equipment", label: "Equipment" },
-  { key: "difficulty", label: "Difficulty" },
-  { key: "sets", label: "Sets" },
-  { key: "reps", label: "Reps" },
-  { key: "duration", label: "Duration", suffix: " min" },
-  { key: "caloriesBurned", label: "Calories", suffix: " kcal" },
-  { key: "rating", label: "Rating" },
+const SPECS: {
+  key: 'equipment' | 'difficulty' | 'sets' | 'reps' | 'duration' | 'caloriesBurned' | 'rating';
+  label: string;
+  suffix?: string;
+}[] = [
+  { key: 'equipment', label: 'Equipment' },
+  { key: 'difficulty', label: 'Difficulty' },
+  { key: 'sets', label: 'Sets' },
+  { key: 'reps', label: 'Reps' },
+  { key: 'duration', label: 'Duration', suffix: ' min' },
+  { key: 'caloriesBurned', label: 'Calories', suffix: ' kcal' },
+  { key: 'rating', label: 'Rating' },
 ];
 
-export default async function WorkoutDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function WorkoutDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const workout = await getWorkoutById(id);
 
@@ -38,13 +38,7 @@ export default async function WorkoutDetailPage({
 
       <div className="grid gap-10 lg:grid-cols-2">
         <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border bg-surface lg:aspect-auto lg:h-full">
-          <Image
-            src={workout.image}
-            alt={workout.name}
-            fill
-            className="object-cover"
-            priority
-          />
+          <Image src={workout.image} alt={workout.name} fill className="object-cover" priority />
         </div>
 
         <div>
@@ -63,9 +57,7 @@ export default async function WorkoutDetailPage({
             {workout.name}
           </h1>
 
-          <p className="mt-3 text-sm text-muted sm:text-base">
-            {workout.description}
-          </p>
+          <p className="mt-3 text-sm text-muted sm:text-base">{workout.description}</p>
 
           <div className="mt-5 flex items-center gap-5 text-sm text-muted">
             <span className="flex items-center gap-1.5">
@@ -84,16 +76,13 @@ export default async function WorkoutDetailPage({
 
           <div className="mt-6 divide-y divide-border overflow-hidden rounded-xl border border-border bg-surface">
             {SPECS.map((spec) => (
-              <div
-                key={spec.key}
-                className="flex items-center justify-between px-4 py-3 text-sm"
-              >
+              <div key={spec.key} className="flex items-center justify-between px-4 py-3 text-sm">
                 <span className="font-semibold uppercase tracking-wide text-muted">
                   {spec.label}
                 </span>
                 <span className="text-text">
                   {workout[spec.key]}
-                  {spec.suffix || ""}
+                  {spec.suffix || ''}
                 </span>
               </div>
             ))}

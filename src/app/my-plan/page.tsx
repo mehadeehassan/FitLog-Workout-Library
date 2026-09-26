@@ -1,35 +1,36 @@
-"use client";
+'use client';
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
-import toast from "react-hot-toast";
-import { usePlan } from "@/context/PlanContext";
-import PlanListItem from "@/components/PlanListItem";
-import SortDropdown from "@/components/SortDropdown";
-import type { SortKey } from "@/lib/types";
+import PlanListItem from '@/components/PlanListItem';
+import SortDropdown from '@/components/SortDropdown';
+import { usePlan } from '@/context/PlanContext';
+import type { SortKey } from '@/lib/types';
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
 
-type TabKey = "plan" | "saved";
+type TabKey = 'plan' | 'saved';
 
 const TABS: { key: TabKey; label: string }[] = [
-  { key: "plan", label: "Today's Plan" },
-  { key: "saved", label: "Saved" },
+  { key: 'plan', label: "Today's Plan" },
+  { key: 'saved', label: 'Saved' },
 ];
 
-const TAB_PILL_ACTIVE = "rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide transition bg-surface-2 text-text";
-const TAB_PILL_INACTIVE = "rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide transition text-muted hover:text-text";
+const TAB_PILL_ACTIVE =
+  'rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide transition bg-surface-2 text-text';
+const TAB_PILL_INACTIVE =
+  'rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide transition text-muted hover:text-text';
 
 export default function MyPlanPage() {
-  const [tab, setTab] = useState<TabKey>("plan");
-  const [sortBy, setSortBy] = useState<SortKey>("duration");
+  const [tab, setTab] = useState<TabKey>('plan');
+  const [sortBy, setSortBy] = useState<SortKey>('duration');
 
-  const { plan, saved, done, removeFromPlan, removeFromSaved, markDone, hydrated } =
-    usePlan();
+  const { plan, saved, done, removeFromPlan, removeFromSaved, markDone, hydrated } = usePlan();
 
-  const activeList = tab === "plan" ? plan : saved;
+  const activeList = tab === 'plan' ? plan : saved;
 
   const sortedList = useMemo(
     () => [...activeList].sort((a, b) => b[sortBy] - a[sortBy]),
-    [activeList, sortBy]
+    [activeList, sortBy],
   );
 
   const metrics = useMemo(
@@ -40,23 +41,23 @@ export default function MyPlanPage() {
           minutes: acc.minutes + w.duration,
           calories: acc.calories + w.caloriesBurned,
         }),
-        { exercises: 0, minutes: 0, calories: 0 }
+        { exercises: 0, minutes: 0, calories: 0 },
       ),
-    [activeList]
+    [activeList],
   );
 
   const handleMarkDone = (id: number) => {
     markDone(id);
-    toast.success("Marked as done");
+    toast.success('Marked as done');
   };
 
   const handleRemove = (id: number) => {
-    if (tab === "plan") {
+    if (tab === 'plan') {
       removeFromPlan(id);
-      toast("Removed from plan");
+      toast('Removed from plan');
     } else {
       removeFromSaved(id);
-      toast("Removed from saved");
+      toast('Removed from saved');
     }
   };
 
@@ -93,9 +94,7 @@ export default function MyPlanPage() {
 
       <div className="mt-6">
         {!hydrated ? (
-          <p className="py-10 text-center text-sm text-muted">
-            Loading workouts…
-          </p>
+          <p className="py-10 text-center text-sm text-muted">Loading workouts…</p>
         ) : sortedList.length === 0 ? (
           <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-surface py-16 text-center">
             <p className="font-display text-2xl font-bold uppercase tracking-tight text-text">
@@ -120,7 +119,7 @@ export default function MyPlanPage() {
                 done={done.includes(workout.id)}
                 onMarkDone={handleMarkDone}
                 onRemove={handleRemove}
-                showMarkDone={tab === "plan"}
+                showMarkDone={tab === 'plan'}
               />
             ))}
           </div>
@@ -133,12 +132,8 @@ export default function MyPlanPage() {
 function StatCard({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-surface py-5">
-      <span className="font-display text-2xl font-bold text-accent sm:text-3xl">
-        {value}
-      </span>
-      <span className="mt-1 text-xs font-semibold uppercase tracking-wide text-muted">
-        {label}
-      </span>
+      <span className="font-display text-2xl font-bold text-accent sm:text-3xl">{value}</span>
+      <span className="mt-1 text-xs font-semibold uppercase tracking-wide text-muted">{label}</span>
     </div>
   );
 }
