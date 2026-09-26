@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
-import WorkoutCard from "./WorkoutCard";
-import SortDropdown from "./SortDropdown";
-import type { Workout, SortKey } from "@/lib/types";
+import type { SortKey, Workout } from '@/lib/types';
+import { Search } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import SortDropdown from './SortDropdown';
+import WorkoutCard from './WorkoutCard';
 
 export default function LibrarySection({ workouts }: { workouts: Workout[] }) {
-  const [sortBy, setSortBy] = useState<SortKey>("duration");
-  const [query, setQuery] = useState("");
+  const [sortBy, setSortBy] = useState<SortKey>('duration');
+  const [query, setQuery] = useState('');
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -17,7 +17,7 @@ export default function LibrarySection({ workouts }: { workouts: Workout[] }) {
       list = list.filter(
         (w) =>
           w.name.toLowerCase().includes(q) ||
-          w.muscleGroups.some((tag) => tag.toLowerCase().includes(q))
+          w.muscleGroups.some((tag) => tag.toLowerCase().includes(q)),
       );
     }
     return [...list].sort((a, b) => b[sortBy] - a[sortBy]);
@@ -30,9 +30,7 @@ export default function LibrarySection({ workouts }: { workouts: Workout[] }) {
           <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-text sm:text-4xl">
             The Library
           </h2>
-          <p className="mt-1 text-sm text-muted">
-            Twelve lifts covering every major muscle group.
-          </p>
+          <p className="mt-1 text-sm text-muted">Twelve lifts covering every major muscle group.</p>
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -55,9 +53,7 @@ export default function LibrarySection({ workouts }: { workouts: Workout[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="mt-10 text-center text-sm text-muted">
-          No workouts match your search.
-        </p>
+        <p className="mt-10 text-center text-sm text-muted">No workouts match your search.</p>
       ) : (
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((workout) => (

@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  ReactNode,
-} from "react";
-import type { Workout } from "@/lib/types";
+import type { Workout } from '@/lib/types';
+import { createContext, ReactNode, useContext, useEffect, useReducer } from 'react';
 
 export const PLAN_CAP = 5;
-const STORAGE_KEY = "fitlog-storage";
+const STORAGE_KEY = 'fitlog-storage';
 
 interface PlanState {
   plan: Workout[];
@@ -20,12 +14,12 @@ interface PlanState {
 }
 
 type Action =
-  | { type: "HYDRATE"; payload: Omit<PlanState, "hydrated"> }
-  | { type: "ADD_TO_PLAN"; payload: Workout }
-  | { type: "REMOVE_FROM_PLAN"; payload: number }
-  | { type: "ADD_TO_SAVED"; payload: Workout }
-  | { type: "REMOVE_FROM_SAVED"; payload: number }
-  | { type: "MARK_DONE"; payload: number };
+  | { type: 'HYDRATE'; payload: Omit<PlanState, 'hydrated'> }
+  | { type: 'ADD_TO_PLAN'; payload: Workout }
+  | { type: 'REMOVE_FROM_PLAN'; payload: number }
+  | { type: 'ADD_TO_SAVED'; payload: Workout }
+  | { type: 'REMOVE_FROM_SAVED'; payload: number }
+  | { type: 'MARK_DONE'; payload: number };
 
 const initialState: PlanState = {
   plan: [],
@@ -35,18 +29,18 @@ const initialState: PlanState = {
 };
 
 function reducer(state: PlanState, action: Action): PlanState {
-  if (action.type === "HYDRATE") {
+  if (action.type === 'HYDRATE') {
     return { ...action.payload, hydrated: true };
   }
 
-  if (action.type === "ADD_TO_PLAN") {
+  if (action.type === 'ADD_TO_PLAN') {
     const workout = action.payload;
     if (state.plan.length >= PLAN_CAP) return state;
     if (state.plan.some((w) => w.id === workout.id)) return state;
     return { ...state, plan: [...state.plan, workout] };
   }
 
-  if (action.type === "REMOVE_FROM_PLAN") {
+  if (action.type === 'REMOVE_FROM_PLAN') {
     const id = action.payload;
     return {
       ...state,
@@ -55,18 +49,18 @@ function reducer(state: PlanState, action: Action): PlanState {
     };
   }
 
-  if (action.type === "ADD_TO_SAVED") {
+  if (action.type === 'ADD_TO_SAVED') {
     const workout = action.payload;
     if (state.saved.some((w) => w.id === workout.id)) return state;
     return { ...state, saved: [...state.saved, workout] };
   }
 
-  if (action.type === "REMOVE_FROM_SAVED") {
+  if (action.type === 'REMOVE_FROM_SAVED') {
     const id = action.payload;
     return { ...state, saved: state.saved.filter((w) => w.id !== id) };
   }
 
-  if (action.type === "MARK_DONE") {
+  if (action.type === 'MARK_DONE') {
     const id = action.payload;
     if (state.done.includes(id)) return state;
     return { ...state, done: [...state.done, id] };
@@ -100,7 +94,7 @@ export function PlanProvider({ children }: { children: ReactNode }) {
       const raw = localStorage.getItem(STORAGE_KEY);
       const parsed = raw ? JSON.parse(raw) : {};
       dispatch({
-        type: "HYDRATE",
+        type: 'HYDRATE',
         payload: {
           plan: parsed.plan ?? [],
           saved: parsed.saved ?? [],
@@ -108,7 +102,7 @@ export function PlanProvider({ children }: { children: ReactNode }) {
         },
       });
     } catch {
-      dispatch({ type: "HYDRATE", payload: { plan: [], saved: [], done: [] } });
+      dispatch({ type: 'HYDRATE', payload: { plan: [], saved: [], done: [] } });
     }
   }, []);
 
@@ -117,7 +111,7 @@ export function PlanProvider({ children }: { children: ReactNode }) {
     try {
       localStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify({ plan: state.plan, saved: state.saved, done: state.done })
+        JSON.stringify({ plan: state.plan, saved: state.saved, done: state.done }),
       );
     } catch {}
   }, [state.plan, state.saved, state.done, state.hydrated]);
@@ -125,23 +119,21 @@ export function PlanProvider({ children }: { children: ReactNode }) {
   const addToPlan = (workout: Workout) => {
     if (state.plan.length >= PLAN_CAP) return false;
     if (state.plan.some((w) => w.id === workout.id)) return false;
-    dispatch({ type: "ADD_TO_PLAN", payload: workout });
+    dispatch({ type: 'ADD_TO_PLAN', payload: workout });
     return true;
   };
 
-  const removeFromPlan = (id: number) =>
-    dispatch({ type: "REMOVE_FROM_PLAN", payload: id });
+  const removeFromPlan = (id: number) => dispatch({ type: 'REMOVE_FROM_PLAN', payload: id });
 
   const addToSaved = (workout: Workout) => {
     if (state.saved.some((w) => w.id === workout.id)) return false;
-    dispatch({ type: "ADD_TO_SAVED", payload: workout });
+    dispatch({ type: 'ADD_TO_SAVED', payload: workout });
     return true;
   };
 
-  const removeFromSaved = (id: number) =>
-    dispatch({ type: "REMOVE_FROM_SAVED", payload: id });
+  const removeFromSaved = (id: number) => dispatch({ type: 'REMOVE_FROM_SAVED', payload: id });
 
-  const markDone = (id: number) => dispatch({ type: "MARK_DONE", payload: id });
+  const markDone = (id: number) => dispatch({ type: 'MARK_DONE', payload: id });
 
   const isInPlan = (id: number) => state.plan.some((w) => w.id === id);
   const isSaved = (id: number) => state.saved.some((w) => w.id === id);
@@ -171,6 +163,6 @@ export function PlanProvider({ children }: { children: ReactNode }) {
 
 export function usePlan() {
   const ctx = useContext(PlanContext);
-  if (!ctx) throw new Error("usePlan must be used within a PlanProvider");
+  if (!ctx) throw new Error('usePlan must be used within a PlanProvider');
   return ctx;
 }
